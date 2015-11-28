@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+		<title>untiedJS</title>
+		<script src="untied.js"></script>
+		<script>
+			function clickSample() {
+				alert('it works.');
+			}
+			
+			var obj = {
+				clickSample : function() {
+					alert('it works.');
+				}
+			};
+			
+			// 동적 생성 DOM에도 적용
+			setTimeout(function() {
+				var div = document.createElement('div');
+				div.innerHTML = '<div data-click="clickSample">dynamic div</div>';
+				document.body.appendChild(div);
+			}, 1000);
+		</script>
+	</head>
+	<body>
+		<h1>untiedJS</h1>
+		<div data-click="clickSample">
+			click sample
+		</div>
+		<div data-click="obj.clickSample">
+			object's click sample
+		</div>
+	</body>
+</html>
