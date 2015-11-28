@@ -40,9 +40,12 @@ untiedJS내부에서는 이 과정을 고도화함.
 * 일정 수준이상 버블링을 찾지 않는 가드기능을 제공함.
 
 ## 사용하기
-`head`나 `body` 내에 아래 구문을 추가하기만 하면 됩니다.
+`head`나 `body` 내에 아래와 같이 구문을 추가합니다. `UntiedJS.watchEvent`에 추적할 이벤트들의 이름을 작성합니다. 추적을 중단할 때는 `UntiedJS.unwatchEvent`를 사용합니다.
 ```html
 <script type="text/javascript" src="/path/to/untied.js"></script>
+<script>
+	UntiedJS.watchEvent('click', 'mousemove');
+</script>
 ```
 
 그리고 원하는 DOM Element에 다음과 같이 원하는 이벤트를 `data-*` 스펙으로 정의합니다.

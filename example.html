@@ -6,8 +6,15 @@
 		<title>untiedJS</title>
 		<script src="untied.js"></script>
 		<script>
+			
+			UntiedJS.watchEvent('click', 'mousemove');
+			
 			function clickSample() {
 				alert('it works.');
+			}
+			
+			function mousemoveSample() {
+				console.log('it works.');
 			}
 			
 			var obj = {
@@ -26,7 +33,7 @@
 	</head>
 	<body>
 		<h1>untiedJS</h1>
-		<div data-click="clickSample">
+		<div data-click="clickSample" data-mousemove="mousemoveSample">
 			click sample
 		</div>
 		<div data-click="obj.clickSample">

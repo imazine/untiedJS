@@ -1,42 +1,67 @@
-// 모든 문서 로딩이 끝난 후
-window.addEventListener('load', function() {
+/**
+ * UntiedJS 
+ */
+
+var UntiedJS = {};
+
+(function() {
 	
 	var
-	eventNames =
+	eventListenerMap = {},
+	isReady = false;
 	
-	[ 'blur'
-	, 'focus'
-	, 'focusin'
-	, 'focusout'
-	, 'load'
-	, 'resize'
-	, 'scroll'
-	, 'unload'
-	, 'click'
-	, 'dblclick'
-	, 'mousedown'
-	, 'mouseup'
-	, 'mousemove'
-	, 'mouseover'
-	, 'mouseout'
-	, 'mouseenter'
-	, 'mouseleave'
-	, 'change'
-	, 'select'
-	, 'submit'
-	, 'keydown'
-	, 'keypress'
-	, 'keyup'
-	, 'error'],
-	
-	eventNamesLength = eventNames.length,
-	eventName,
-	i;
-	
-	for (i = 0; i < eventNamesLength; i += 1) {
-		eventName = eventNames[i];
+	// 추적하고자 하는 이벤트 추가
+	function watchEvent() {
 		
-		document.body.addEventListener(eventName, function(e) {
+		var
+		argsLength = arguments.length,
+		eventName,
+		i;
+		
+		for (i = 0; i < argsLength; i += 1) {
+			eventName = arguments[i];
+			
+			if (eventListenerMap[eventName] === undefined) {
+				eventListenerMap[eventName] = [];
+			}
+			
+			if (isReady === true) {
+				attachEvent(eventName);
+			}
+		}
+	}
+	
+	// 이벤트 제거
+	function unwatchEvent() {
+		
+		var 
+		argsLength = arguments.length,
+		eventName,
+		eventListeners,
+		i, j;
+		
+		for (eventName in eventListenerMap) {
+			if (eventListenerMap.hasOwnProperty(eventName) === true) {
+				
+				for (i = 0; i < argsLength; i += 1) {
+					if (eventName === arguments[i]) {
+						
+						eventListeners = eventListenerMap[eventName];
+						for (j = 0; j < eventListeners.length; j += 1) {
+							detachEvent(eventName, eventListeners[j]);
+						}
+						
+						delete eventListenerMap[eventName];
+					}
+				}
+			}
+		}
+	}
+	
+	// 이벤트 리스너 등록
+	function attachEvent(eventName) {
+		
+		var eventListener = function(e) {
 			
 			var
 			target = e.target,
@@ -60,7 +85,31 @@ window.addEventListener('load', function() {
 				func(e);
 			}
 			
-		}, false);
+		};
+		
+		document.body.addEventListener(eventName, eventListener, false);
+		
+		eventListenerMap[eventName].push(eventListener);
+	}
+	
+	// 이벤트 리스너 제거
+	function detachEvent(eventName, eventListener) {
+		document.body.removeEventListener(eventName, eventListener, false);
 	}
 
-}, false);
+	// 모든 문서 로딩이 끝난 후
+	window.addEventListener('load', function() {
+		
+		for (eventName in eventListenerMap) {
+			if (eventListenerMap.hasOwnProperty(eventName) === true) {
+				attachEvent(eventName);
+			}
+		}
+		
+		isReady = true;
+	}, false);
+	
+	UntiedJS.watchEvent = watchEvent;
+	UntiedJS.unwatchEvent = unwatchEvent;
+
+})();
