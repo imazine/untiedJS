@@ -69,3 +69,6 @@ function clickSample() {
 
 ## 라이센스
 [BSD](LICENSE)
+
+## 참고
+[DOM level1 이벤트 모델의 재발견](http://www.bsidesoft.com/?p=2012)
