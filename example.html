@@ -31,25 +31,25 @@
 		<title>untiedJS</title>
 		<script src="untied.js"></script>
 		<script>
-			
+
 			UntiedJS.watchEvent('click', 'mousemove', 'resize');
-			
+
 			function clickSample() {
 				alert('CLICKED!!!');
 			}
-            
+
             function touchenterSample() {
 				alert('TOUCHED!!!');
 			}
-			
+
 			function resizeSample() {
 				console.log('RESIZED!!!');
 			}
-            
+
 			var obj = {
 				touchenterSample : touchenterSample
 			};
-			
+
 			// 동적 생성 DOM에도 적용
 			setTimeout(function() {
 				var div = document.createElement('div');
@@ -70,7 +70,7 @@
             <code>&lt;div data-touchenter="obj.touchenterSample"></code>
 		</div>
 		<div data-resize="resizeSample" class='sample3'>
-			resize 이벤트 핸들러 호출<br/>
+			resize 이벤트 핸들러 호출 - 콘솔 로그를 확인해주세요.<br/>
 			<code>&lt;div data-click="resizeSample"></code>
 		</div>
 	</body>
