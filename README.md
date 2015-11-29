@@ -60,6 +60,10 @@ function clickSample() {
 </div>
 ```
 
+## 예제
+
+<a href='example.html' target='_blank'>Basic Example</a>
+
 ## 장점
 
 1. view가 되는 HTML에는 어떤 객체와 바인딩되면 좋겠다는 문자열만 기술되어있음.
