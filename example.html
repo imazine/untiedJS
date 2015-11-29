@@ -3,6 +3,26 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+        <style>
+            body {
+                font-size: 30px;
+            }
+            .sample1 {
+                color: white;
+                height: 4em;
+                background: slategray;
+            }
+            .sample2 {
+                color: greenyellow;
+                height: 4em;
+                background: darkgreen;
+            }
+            .sample3 {
+                color: yellow;
+                height: 4em;
+                background: saddlebrown;
+            }
+        </style>
 		<title>untiedJS</title>
 		<script src="untied.js"></script>
 		<script>
@@ -10,34 +30,35 @@
 			UntiedJS.watchEvent('click', 'mousemove');
 			
 			function clickSample() {
-				alert('it works.');
+				alert('CLICKED!!!');
 			}
-			
-			function mousemoveSample() {
-				console.log('it works.');
+            
+            function touchenterSample() {
+				alert('TOUCHED!!!');
 			}
-			
+            
 			var obj = {
-				clickSample : function() {
-					alert('it works.');
-				}
+				touchenterSample : touchenterSample
 			};
 			
 			// 동적 생성 DOM에도 적용
 			setTimeout(function() {
 				var div = document.createElement('div');
-				div.innerHTML = '<div data-click="clickSample">dynamic div</div>';
+				div.innerHTML = '<div data-click="clickSample" class="sample3">innerHTML로 동적으로 생성된 HTML에 명시된 클릭 이벤트 핸들러 호출<br/>div.innerHTML = \'&lt;div data-click="clickSample">\'</div>';
 				document.body.appendChild(div);
-			}, 1000);
+			}, 500);
 		</script>
 	</head>
 	<body>
 		<h1>untiedJS</h1>
-		<div data-click="clickSample" data-mousemove="mousemoveSample">
-			click sample
+        <h4>EventTarget.addEventListener()나 $(querySelector).on()를 쓰지 않는 이벤트 처리</h4>
+		<div data-click="clickSample" class='sample1'>
+            클릭 이벤트 핸들러 호출<br/>
+			<code>&lt;div data-click="clickSample"></code>
 		</div>
-		<div data-click="obj.clickSample">
-			object's click sample
+		<div data-click="obj.touchenterSample" class='sample2'>
+			객체 내에 있는 터치엔터 이벤트 핸들러 호출<br/>
+            <code>&lt;div data-touchenter="obj.touchenterSample"></code>
 		</div>
 	</body>
 </html>
