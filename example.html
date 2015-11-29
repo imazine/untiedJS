@@ -5,7 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
         <style>
             body {
-                font-size: 30px;
+                font-size: 20px;
             }
             .sample1 {
                 color: white;
@@ -18,6 +18,11 @@
                 background: darkgreen;
             }
             .sample3 {
+                color: white;
+                height: 4em;
+                background: blue;
+            }
+            .sample4 {
                 color: yellow;
                 height: 4em;
                 background: saddlebrown;
@@ -27,7 +32,7 @@
 		<script src="untied.js"></script>
 		<script>
 			
-			UntiedJS.watchEvent('click', 'mousemove');
+			UntiedJS.watchEvent('click', 'mousemove', 'resize');
 			
 			function clickSample() {
 				alert('CLICKED!!!');
@@ -35,6 +40,10 @@
             
             function touchenterSample() {
 				alert('TOUCHED!!!');
+			}
+			
+			function resizeSample() {
+				console.log('RESIZED!!!');
 			}
             
 			var obj = {
@@ -44,7 +53,7 @@
 			// 동적 생성 DOM에도 적용
 			setTimeout(function() {
 				var div = document.createElement('div');
-				div.innerHTML = '<div data-click="clickSample" class="sample3">innerHTML로 동적으로 생성된 HTML에 명시된 클릭 이벤트 핸들러 호출<br/>div.innerHTML = \'&lt;div data-click="clickSample">\'</div>';
+				div.innerHTML = '<div data-click="clickSample" class="sample4">innerHTML로 동적으로 생성된 HTML에 명시된 클릭 이벤트 핸들러 호출<br/>div.innerHTML = \'&lt;div data-click="clickSample">\'</div>';
 				document.body.appendChild(div);
 			}, 1000);
 		</script>
@@ -53,12 +62,16 @@
 		<h1>untiedJS</h1>
         <h4>EventTarget.addEventListener()나 $(querySelector).on()를 쓰지 않는 이벤트 처리</h4>
 		<div data-click="clickSample" class='sample1'>
-            클릭 이벤트 핸들러 호출<br/>
+			클릭 이벤트 핸들러 호출<br/>
 			<code>&lt;div data-click="clickSample"></code>
 		</div>
 		<div data-click="obj.touchenterSample" class='sample2'>
 			객체 내에 있는 터치엔터 이벤트 핸들러 호출<br/>
             <code>&lt;div data-touchenter="obj.touchenterSample"></code>
+		</div>
+		<div data-resize="resizeSample" class='sample3'>
+			resize 이벤트 핸들러 호출<br/>
+			<code>&lt;div data-click="resizeSample"></code>
 		</div>
 	</body>
 </html>
