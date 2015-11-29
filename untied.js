@@ -59,48 +59,27 @@ var UntiedJS = {};
 			target = e.target,
 			targets,
 			eventName = e.type,
-			funcName,
+			funcName = target.getAttribute('data-' + eventName),
 			funcNameSplits,
 			funcNameSplitsLength,
 			funcNameSplit,
 			func = window,
 			i;
 			
-			if (target === window) {
-				targets = document.querySelectorAll('[data-' + eventName + ']');
-				
-				for (i = 0; i < targets.length; i += 1) {
-					eventListener({
-						target : targets[i],
-						type : eventName
-					});
+			if (funcName !== null) {
+				funcNameSplits = funcName.split('.');
+				funcNameSplitsLength = funcNameSplits.length;
+
+				for (i = 0; i < funcNameSplitsLength; i += 1) {
+					funcNameSplit = funcNameSplits[i];
+					func = func[funcNameSplit];
 				}
-			}
-			
-			else {
 				
-				funcName = target.getAttribute('data-' + eventName);
-				
-				if (funcName !== null) {
-					funcNameSplits = funcName.split('.');
-					funcNameSplitsLength = funcNameSplits.length;
-	
-					for (i = 0; i < funcNameSplitsLength; i += 1) {
-						funcNameSplit = funcNameSplits[i];
-						func = func[funcNameSplit];
-					}
-					
-					func(e);
-				}
+				func(e);
 			}
 		};
 		
-		if ('on' + eventName in window) {
-			window.addEventListener(eventName, eventListener, false);
-		} else {
-			document.body.addEventListener(eventName, eventListener, false);
-		}
-		
+		document.body.addEventListener(eventName, eventListener, false);
 		eventListeners.push(eventListener);
 	}
 	
