@@ -62,7 +62,7 @@ function clickSample() {
 
 ## 예제
 
-<a href='example.html' target='_blank'>Basic Example</a>
+<a href='http://untiedjs.github.io/untiedJS/example.html' target='_blank'>Basic Example</a>
 
 ## 장점
 
