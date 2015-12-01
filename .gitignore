@@ -1,3 +1,7 @@
 
 # Eclipse 프로젝트
 .project
+
+# OS X thumbnail file
+.DS_Store
+
